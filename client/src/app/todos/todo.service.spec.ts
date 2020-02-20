@@ -77,8 +77,13 @@ describe('Todo service: ', () => {
   it('getTodos() calls api/todos with filter parameter \'true\'', () => {
 
     todoService.getTodos({ status: true }).subscribe(
-      todos => expect(todos).toBe(testTodos)
-    );
+      todos => {
+        expect(todos).toBe(testTodos);
+        todos.forEach(td => {
+          expect(td.status).toBe(true);
+        });
+      }
+  );
 
     // Specify that (exactly) one request will be made to the specified URL with the role parameter.
     const req = httpTestingController.expectOne(
