@@ -40,7 +40,7 @@ export class TodoService {
 
     let filteredTodos = todos;
 
-    // Filter by name
+    // Filter by owner
     if (filters.owner) {
       filters.owner = filters.owner.toLowerCase();
 
@@ -49,7 +49,7 @@ export class TodoService {
       });
     }
 
-    // Filter by company
+    // Filter by body
     if (filters.body) {
       filters.body = filters.body.toLowerCase();
 
