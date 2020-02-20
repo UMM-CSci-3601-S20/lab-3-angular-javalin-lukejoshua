@@ -8,25 +8,25 @@ describe('Todo service: ', () => {
   // A small collection of test users
   const testTodos: Todo[] = [
     {
-      _id: 'chris_id',
-      owner: 'Chris',
-      category: 'UMM',
-      status: true,
-      body: 'admin',
-    },
-    {
-      _id: 'mike_id',
-      owner: 'Mike',
-      category: 'UMM',
+      _id: 'bill_id',
+      owner: 'Microsoft',
       status: false,
-      body: 'admin',
+      body: 'UMM',
+      category: 'video games',
     },
     {
-      _id: 'jill_id',
-      owner: 'Jill',
-      category: 'UMM',
+      _id: 'cookie_id',
+      owner: 'Cookie',
       status: true,
-      body: 'admin',
+      body: 'UMM',
+      category: 'homework',
+    },
+    {
+      _id: 'jamie_id',
+      owner: 'Van Halen Fan',
+      status: true,
+      body: 'UMM',
+      category: 'music',
     }
   ];
   let todoService: TodoService;
@@ -85,7 +85,7 @@ describe('Todo service: ', () => {
       }
   );
 
-    // Specify that (exactly) one request will be made to the specified URL with the role parameter.
+    // Specify that (exactly) one request will be made to the specified URL with the status parameter.
     const req = httpTestingController.expectOne(
       (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('status')
     );
@@ -93,7 +93,7 @@ describe('Todo service: ', () => {
     // Check that the request made to that URL was a GET request.
     expect(req.request.method).toEqual('GET');
 
-    // Check that the role parameter was 'admin'
+    // Check that the status parameter was 'true'
     expect(req.request.params.get('status')).toBeTruthy(true);
 
     req.flush(testTodos);
