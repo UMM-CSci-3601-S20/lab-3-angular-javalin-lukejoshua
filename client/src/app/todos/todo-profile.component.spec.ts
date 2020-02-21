@@ -40,30 +40,30 @@ describe('UserProfileComponent', () => {
   });
 
   it('should navigate to a specific user profile', () => {
-    const expectedUser: Todo = MockTodoService.testTodos[0];
+    const expectedTodo: Todo = MockTodoService.testTodos[0];
     // Setting this should cause anyone subscribing to the paramMap
     // to update. Our `UserProfileComponent` subscribes to that, so
     // it should update right away.
-    activatedRoute.setParamMap({ id: expectedUser._id });
+    activatedRoute.setParamMap({ id: expectedTodo._id });
 
-    expect(component.id).toEqual(expectedUser._id);
-    expect(component.user).toEqual(expectedUser);
+    expect(component.id).toEqual(expectedTodo._id);
+    expect(component.todo).toEqual(expectedTodo);
   });
 
   it('should navigate to correct user when the id parameter changes', () => {
-    let expectedUser: Todo = MockTodoService.testTodos[0];
+    let expectedTodo: Todo = MockTodoService.testTodos[0];
     // Setting this should cause anyone subscribing to the paramMap
     // to update. Our `UserProfileComponent` subscribes to that, so
     // it should update right away.
-    activatedRoute.setParamMap({ id: expectedUser._id });
+    activatedRoute.setParamMap({ id: expectedTodo._id });
 
-    expect(component.id).toEqual(expectedUser._id);
+    expect(component.id).toEqual(expectedTodo._id);
 
     // Changing the paramMap should update the displayed user profile.
-    expectedUser = MockTodoService.testTodos[1];
-    activatedRoute.setParamMap({ id: expectedUser._id });
+    expectedTodo = MockTodoService.testTodos[1];
+    activatedRoute.setParamMap({ id: expectedTodo._id });
 
-    expect(component.id).toEqual(expectedUser._id);
+    expect(component.id).toEqual(expectedTodo._id);
   });
 
   it('should have `null` for the user for a bad ID', () => {
@@ -73,6 +73,6 @@ describe('UserProfileComponent', () => {
     // to return `null`, so we would expect the component's user
     // to also be `null`.
     expect(component.id).toEqual('badID');
-    expect(component.user).toBeNull();
+    expect(component.todo).toBeNull();
   });
 });
