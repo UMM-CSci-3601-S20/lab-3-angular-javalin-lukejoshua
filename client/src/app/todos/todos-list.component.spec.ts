@@ -47,7 +47,7 @@ describe('TodoProfileComponent', () => {
     activatedRoute.setParamMap({ id: expectedTodo._id });
 
     expect(component.id).toEqual(expectedTodo._id);
-    expect(component.user).toEqual(expectedTodo);
+    expect(component.todo).toEqual(expectedTodo);
   });
 
   it('should navigate to correct user when the id parameter changes', () => {
@@ -73,6 +73,6 @@ describe('TodoProfileComponent', () => {
     // to return `null`, so we would expect the component's user
     // to also be `null`.
     expect(component.id).toEqual('badID');
-    expect(component.user).toBeNull();
+    expect(component.todo).toBeNull();
   });
 });
