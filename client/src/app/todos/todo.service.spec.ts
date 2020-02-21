@@ -74,30 +74,30 @@ describe('Todo service: ', () => {
     req.flush(testTodos);
   });
 
-  it('getTodos() calls api/todos with filter parameter \'true\'', () => {
+  // it('getTodos() calls api/todos with filter parameter \'true\'', () => {
 
-    todoService.getTodos({ status: true }).subscribe(
-      todos => {
-        expect(todos).toBe(testTodos);
-        todos.forEach(td => {
-          expect(td.status).toBe(true);
-        });
-      }
-  );
+  //   todoService.getTodos({ status: true }).subscribe(
+  //     todos => {
+  //       expect(todos).toBe(testTodos);
+  //       todos.forEach(td => {
+  //         expect(td.status).toBe(true);
+  //       });
+  //     }
+  // );
 
-    // Specify that (exactly) one request will be made to the specified URL with the status parameter.
-    const req = httpTestingController.expectOne(
-      (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('status')
-    );
+  //   // Specify that (exactly) one request will be made to the specified URL with the status parameter.
+  //   const req = httpTestingController.expectOne(
+  //     (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('status')
+  //   );
 
-    // Check that the request made to that URL was a GET request.
-    expect(req.request.method).toEqual('GET');
+  //   // Check that the request made to that URL was a GET request.
+  //   expect(req.request.method).toEqual('GET');
 
-    // Check that the status parameter was 'true'
-    expect(req.request.params.get('status')).toBeTruthy(true);
+  //   // Check that the status parameter was 'true'
+  //   expect(req.request.params.get('status')).toBeTruthy(true);
 
-    req.flush(testTodos);
-  });
+  //   req.flush(testTodos);
+  // });
 
   // it('getUsers() calls api/users with filter parameter \'age\'', () => {
 

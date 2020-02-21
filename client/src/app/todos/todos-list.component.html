@@ -3,7 +3,7 @@
 
     <mat-card class="search-card">
       <mat-card-header>
-        <mat-card-title class="user-list-title">Users</mat-card-title>
+        <mat-card-title class="todo-list-title">Todos</mat-card-title>
       </mat-card-header>
       <mat-card-content fxLayout="column" >
 
@@ -11,15 +11,15 @@
           <!-- Examples of filtering in Angular -->
 
           <mat-form-field class="input-field">
-            <mat-label>Name</mat-label>
-            <input matInput id="user-name-input" placeholder="Filter by name"
+            <mat-label>Owner</mat-label>
+            <input matInput id="todo-owner-input" placeholder="Filter by owner"
             [(ngModel)]="todoOwner" (input)="updateFilter()">
             <mat-hint>Filtered in Angular</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
-            <mat-label>Company</mat-label>
-            <input matInput id="user-company-input" placeholder="Filter by company"
+            <mat-label>Category</mat-label>
+            <input matInput id="todo-category-input" placeholder="Filter by category"
             [(ngModel)]="todoCategory" (input)="updateFilter()">
             <mat-hint>Filtered in Angular</mat-hint>
           </mat-form-field>
@@ -29,22 +29,23 @@
           <!-- Examples of filtering on the server -->
 
           <mat-form-field class="input-field">
-            <mat-label>Age</mat-label>
-            <input matInput id="user-age-input" type="number" placeholder="Filter by age"
-            min="0" max="200" [(ngModel)]="todoStatus" (input)="getTodosFromServer()">
+            <mat-label>Status</mat-label>
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" id="todo-status-select">
+              <mat-option>--</mat-option>
+              <mat-option value="true">True</mat-option>
+              <mat-option value="false">False</mat-option>
+            </mat-select>
             <mat-hint>Filtered on Server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
-            <mat-label>Role</mat-label>
-            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" id="user-role-select">
-              <mat-option>--</mat-option>
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
-            </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
+            <mat-label>Body</mat-label>
+            <input matInput id="todo-body-input" placeholder="Filter by body"
+            [(ngModel)]="todoBody" (input)="updateFilter()">
+            <mat-hint>Filtered in Angular</mat-hint>
           </mat-form-field>
+
+
         </div>
 
         <br>
@@ -68,18 +69,18 @@
 
       <!-- Card grid view -->
       <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="user-cards-container">
-        <app-user-card simple="true" *ngFor="let user of filteredTodos" class="user-card" [user]="user" fxFlex="1 1 280px"></app-user-card>
+        <app-todo-card simple="true" *ngFor="let todo of filteredTodos" class="todo-card" [todo]="todo" fxFlex="1 1 280px"></app-todo-card>
       </div>
 
       <!-- List view -->
       <mat-card *ngSwitchCase="'list'">
         <mat-card-content>
-          <mat-nav-list class="user-nav-list">
-            <h3 mat-subheader>Users</h3>
-            <a mat-list-item *ngFor="let user of this.filteredTodos" [routerLink]="['/users', user._id]" class="user-list-item">
+          <mat-nav-list class="todo-nav-list">
+            <h3 mat-subheader>Todos</h3>
+            <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]" class="todo-list-item">
               <!-- <img matListAvatar [src]="user.avatar"> -->
-              <h3 matLine class="user-list-name"> {{todoOwner}} </h3>
-              <p matLine class="user-list-role"> {{todoCategory}} </p>
+              <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>
+              <p matLine class="todo-list-category"> {{todo.category}} </p>
             </a>
           </mat-nav-list>
         </mat-card-content>
@@ -90,7 +91,7 @@
 
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
   <ng-template #usersError>
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todo-error">
       <mat-error>
         There was a problem loading the users. Possibly the server is down or perhaps there are network
         issues.
