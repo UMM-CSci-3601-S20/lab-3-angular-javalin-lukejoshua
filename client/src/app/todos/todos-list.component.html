@@ -30,21 +30,22 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <input matInput id="todo-status-input" type="boolean" placeholder="Filter by status"
-            min="0" max="200" [(ngModel)]="todoStatus" (input)="getTodosFromServer()">
+            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="todoStatus" id="todo-status-select">
+              <mat-option>--</mat-option>
+              <mat-option value="true">True</mat-option>
+              <mat-option value="false">False</mat-option>
+            </mat-select>
             <mat-hint>Filtered on Server</mat-hint>
           </mat-form-field>
 
           <mat-form-field class="input-field">
-            <mat-label>Role</mat-label>
-            <mat-select (selectionChange)="getTodosFromServer()" [(ngModel)]="userRole" id="user-role-select">
-              <mat-option>--</mat-option>
-              <mat-option value="admin">Admin</mat-option>
-              <mat-option value="editor">Editor</mat-option>
-              <mat-option value="viewer">Viewer</mat-option>
-            </mat-select>
-            <mat-hint>Filtered on server</mat-hint>
+            <mat-label>Body</mat-label>
+            <input matInput id="todo-body-input" placeholder="Filter by body"
+            [(ngModel)]="todoBody" (input)="updateFilter()">
+            <mat-hint>Filtered in Angular</mat-hint>
           </mat-form-field>
+
+
         </div>
 
         <br>
@@ -62,24 +63,24 @@
 </div>
 
 <div fxLayout="row">
-  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredUsers; else usersError" >
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else usersError" >
     <!-- Switch between card and list view based on the viewType variable, set above in the mar-radio-group -->
     <div [ngSwitch]="viewType">
 
       <!-- Card grid view -->
       <div *ngSwitchCase="'card'" fxLayout="row wrap" fxLayoutGap="10px" class="user-cards-container">
-        <app-user-card simple="true" *ngFor="let user of filteredUsers" class="user-card" [user]="user" fxFlex="1 1 280px"></app-user-card>
+        <app-todo-card simple="true" *ngFor="let todo of filteredTodos" class="todo-card" [todo]="todo" fxFlex="1 1 280px"></app-todo-card>
       </div>
 
       <!-- List view -->
       <mat-card *ngSwitchCase="'list'">
         <mat-card-content>
-          <mat-nav-list class="user-nav-list">
-            <h3 mat-subheader>Users</h3>
-            <a mat-list-item *ngFor="let user of this.filteredUsers" [routerLink]="['/users', user._id]" class="user-list-item">
-              <img matListAvatar [src]="user.avatar">
-              <h3 matLine class="user-list-name"> {{user.name}} </h3>
-              <p matLine class="user-list-role"> {{user.role}} </p>
+          <mat-nav-list class="todo-nav-list">
+            <h3 mat-subheader>Todos</h3>
+            <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]" class="todo-list-item">
+              <!-- <img matListAvatar [src]="user.avatar"> -->
+              <h3 matLine class="todo-list-owner"> {{todo.owner}} </h3>
+              <p matLine class="todo-list-category"> {{todo.category}} </p>
             </a>
           </mat-nav-list>
         </mat-card-content>
@@ -90,7 +91,7 @@
 
   <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
   <ng-template #usersError>
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="todo-error">
       <mat-error>
         There was a problem loading the users. Possibly the server is down or perhaps there are network
         issues.
