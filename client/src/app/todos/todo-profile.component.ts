@@ -10,9 +10,9 @@ import { TodoService } from './todo.service';
 })
 export class TodoProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: TodoService) { }
+  constructor(private route: ActivatedRoute, private todoService: TodoService) { }
 
-  user: Todo;
+  todo: Todo;
   id: string;
 
   ngOnInit(): void {
@@ -21,7 +21,7 @@ export class TodoProfileComponent implements OnInit {
     // to display the newly requested user.
     this.route.paramMap.subscribe((pmap) => {
       this.id = pmap.get('id');
-      this.userService.getTodoById(this.id).subscribe(user => this.user = user);
+      this.todoService.getTodoById(this.id).subscribe(todo => this.todo = todo);
     });
   }
 
