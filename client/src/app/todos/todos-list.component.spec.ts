@@ -37,7 +37,7 @@ const COMMON_IMPORTS: any[] = [
   RouterTestingModule,
 ];
 
-describe('User list', () => {
+describe('Todo list', () => {
 
   let todoList: TodoListComponent;
   let fixture: ComponentFixture<TodoListComponent>;
