@@ -61,7 +61,7 @@ describe('Todo list', () => {
   }));
 
   it('contains all the users', () => {
-    expect(todoList.serverFilteredTodos.length).toBe(3);
+    expect(todoList.serverFilteredTodos.length).toBe(5);
   });
 
   it('contains a todo owner \'Microsoft\'', () => {
@@ -76,14 +76,23 @@ describe('Todo list', () => {
     expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Santa')).toBe(false);
   });
 
-  it('has two todos that status is true', () => {
-    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.status === true).length).toBe(2);
+  it('has four todos that status is true', () => {
+    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.status === true).length).toBe(4);
   });
 
   it('three owners of Cookie with limit', () => {
     expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === "Cookie"
     && todoList.todoLimit === 3).length).toBe(3);
-  })
+  });
+
+  it('three owners of Cookie without limit', () => {
+    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === "Cookie").length).toBe(3);
+  });
+
+  it('five bodies with UMM', () => {
+    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.body === "UMM").length).toBe(5);
+  });
+
 });
 
 describe('Misbehaving Todo List', () => {

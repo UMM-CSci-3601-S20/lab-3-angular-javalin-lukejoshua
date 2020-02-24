@@ -18,7 +18,7 @@ export class MockTodoService extends TodoService {
       category: 'video games',
     },
     {
-      _id: 'cookie_id',
+      _id: 'cookie1_id',
       owner: 'Cookie',
       status: true,
       body: 'UMM',
@@ -30,6 +30,20 @@ export class MockTodoService extends TodoService {
       status: true,
       body: 'UMM',
       category: 'music',
+    },
+    {
+      _id: 'cookie2_id',
+      owner: 'Cookie',
+      status: true,
+      body: 'UMM',
+      category: 'homework',
+    },
+    {
+      _id: 'cookie3_id',
+      owner: 'Cookie',
+      status: true,
+      body: 'UMM',
+      category: 'homework',
     }
   ];
 
