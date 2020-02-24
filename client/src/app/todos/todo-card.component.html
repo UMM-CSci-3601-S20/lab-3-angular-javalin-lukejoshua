@@ -3,6 +3,7 @@
    <!-- <div mat-card-avatar class="todo-avatar" [style.background]="'url(' + this.todo.avatar + ')'"></div> -->
     <mat-card-title class="todo-card-owner">{{ this.todo.owner }}</mat-card-title>
     <mat-card-subtitle class="todo-card-category">{{ this.todo.category }}</mat-card-subtitle>
+    <mat-card-content class="todo-card-status">{{this.todo.status}}</mat-card-content>
   </mat-card-header>
   <mat-card-content *ngIf="!this.simple">
     <p>Status: <span class="todo-card-status">{{ todo.status }}</span></p>
