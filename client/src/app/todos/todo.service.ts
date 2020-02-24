@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Todo } from './todo';
+import { Todo, StatusType } from './todo';
 
 @Injectable()
 export class TodoService {
@@ -11,11 +11,12 @@ export class TodoService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getTodos(filters?: { status?: boolean, owner?: string, body?: string, category?: string }): Observable<Todo[]> {
+  getTodos(filters?: { status?: StatusType, owner?: string, body?: string, category?: string, limit?: number}): Observable<Todo[]> {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
+
       if (filters.status) {
-        httpParams = httpParams.set('status', filters.status.toString());
+        httpParams = httpParams.set('status', filters.status);
       }
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);
@@ -26,6 +27,11 @@ export class TodoService {
       if (filters.category) {
         httpParams = httpParams.set('category', filters.category);
       }
+
+      if (filters.limit) {
+        httpParams = httpParams.set('limit', filters.limit.toString());
+      }
+
     }
     return this.httpClient.get<Todo[]>(this.todoUrl, {
       params: httpParams,
@@ -66,6 +72,7 @@ export class TodoService {
         return todo.category.toLowerCase().indexOf(filters.category) !== -1;
       });
     }
+
 
     return filteredTodos;
   }

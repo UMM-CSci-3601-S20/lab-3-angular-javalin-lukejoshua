@@ -13,54 +13,53 @@ describe('Todo list', () => {
     expect(page.getTodoTitle()).toEqual('Todos');
   });
 
-  it('Should type something in the name filter and check that it returned correct elements', () => {
-    page.typeInput('todo-name-input', 'Lynn Ferguson');
+  it('Should type something in the owner filter and check that it returned correct elements', () => {
+    page.typeInput('todo-owner-input', 'Blanche');
 
     // All of the todo cards should have the name we are filtering by
     page.getTodoCards().each(e => {
-      expect(e.element(by.className('todo-card-name')).getText()).toEqual('Lynn Ferguson');
+      expect(e.element(by.className('todo-card-owner')).getText()).toEqual('Blanche');
     });
   });
 
-  it('Should type something in the company filter and check that it returned correct elements', () => {
-    page.typeInput('todo-company-input', 'OHMNET');
+  it('Should type something in the category filter and check that it returned correct elements', () => {
+    page.typeInput('todo-category-input', 'software design');
 
     // All of the user cards should have the company we are filtering by
     page.getTodoCards().each(e => {
-      expect(e.element(by.className('todo-card-company')).getText()).toEqual('OHMNET');
+      expect(e.element(by.className('todo-card-category')).getText()).toEqual('software design');
     });
   });
 
-  it('Should type something partial in the company filter and check that it returned correct elements', () => {
-    page.typeInput('todo-company-input', 'ti');
+  it('Should type something partial in the category filter and check that it returned correct elements', () => {
+    page.typeInput('todo-company-input', 'vi');
 
     // Go through each of the cards that are being shown and get the companies
-    let companies = page.getTodoCards().map(e => e.element(by.className('todo-card-company')).getText());
+    let companies = page.getTodoCards().map(e => e.element(by.className('todo-card-category')).getText());
 
     // We should see these companies
-    expect(companies).toContain('MOMENTIA');
-    expect(companies).toContain('KINETICUT');
+    expect(companies).toContain('video games');
 
     // We shouldn't see these companies
-    expect(companies).not.toContain('DATAGENE');
-    expect(companies).not.toContain('OHMNET');
+    expect(companies).not.toContain('software design');
+    expect(companies).not.toContain('groceries');
   });
 
-  it('Should type something in the age filter and check that it returned correct elements', () => {
-    page.typeInput('todo-age-input', '27');
+  // it('Should type something in the status filter and check that it returned correct elements', () => {
+  //   page.typeInput('todo-status-input', 'true');
 
-    // Go through each of the cards that are being shown and get the names
-    let names = page.getTodoCards().map(e => e.element(by.className('todo-card-name')).getText());
+  //   // Go through each of the cards that are being shown and get the owners
+  //   let owners = page.getTodoCards().map(e => e.element(by.className('todo-card-owner')).getText());
 
-    // We should see these users whose age is 27
-    expect(names).toContain('Stokes Clayton');
-    expect(names).toContain('Bolton Monroe');
-    expect(names).toContain('Merrill Parker');
+  //   // We should see these users whose age is 27
+  //   expect(owners).toContain('Blanche');
+  //   expect(owners).toContain('Fry');
+  //   expect(owners).toContain('Barry');
 
-    // We shouldn't see these users
-    expect(names).not.toContain('Connie Stewart');
-    expect(names).not.toContain('Lynn Ferguson');
-  });
+  //   // We shouldn't see these users
+  //   expect(owners).not.toContain('Connie Stewart');
+  //   expect(owners).not.toContain('Lynn Ferguson');
+  // });
 
   it('Should change the view', () => {
     page.changeView('list');
@@ -69,27 +68,17 @@ describe('Todo list', () => {
     expect(page.getTodoListItems().count()).toBeGreaterThan(0); // There should be list items
   });
 
-  it('Should select a role, switch the view, and check that it returned correct elements', () => {
-    page.selectMatSelectValue('todo-role-select', 'viewer');
 
-    page.changeView('list');
-
-    // All of the user list items should have the role we are looking for
-    page.getTodoListItems().each(e => {
-      expect(e.element(by.className('todo-list-role')).getText()).toEqual('viewer');
-    });
-  });
-
-  it('Should click view profile on a user and go to the right URL', () => {
+  it('Should click view profile on a todo and go to the right URL', () => {
     page.clickViewProfile(page.getTodoCards().first());
 
-    // When the view profile button on the first user card is clicked, we should be sent to the right URL
+    // When the view profile button on the first todo card is clicked, we should be sent to the right URL
     page.getUrl().then(url => {
       expect(url.endsWith('/todos/588935f57546a2daea44de7c')).toBe(true);
     });
 
-    // On this profile page we were sent to, the name should be correct
-    expect(element(by.className('todo-card-name')).getText()).toEqual('Connie Stewart');
+    // On this profile page we were sent to, the owner should be correct
+    expect(element(by.className('todo-card-owner')).getText()).toEqual('Blanche');
   });
 
 });
