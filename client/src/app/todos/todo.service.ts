@@ -16,7 +16,7 @@ export class TodoService {
     if (filters) {
 
       if (filters.status) {
-        httpParams = httpParams.set('status', filters.status.toString());
+        httpParams = httpParams.set('status', filters.status);
       }
       if (filters.owner) {
         httpParams = httpParams.set('owner', filters.owner);

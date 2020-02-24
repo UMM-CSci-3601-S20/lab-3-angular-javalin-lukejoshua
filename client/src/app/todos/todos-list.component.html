@@ -30,10 +30,10 @@
 
           <mat-form-field class="input-field">
             <mat-label>Status</mat-label>
-            <mat-select type=boolean (selectionChange)="getTodosFromServer()" (input)="getTodosFromServer()" [(ngModel)]="todoStatus">
+            <mat-select (selectionChange)="getTodosFromServer()"  [(ngModel)]="todoStatus" id="todo-status-select">
               <mat-option>--</mat-option>
-              <mat-option value=true>True</mat-option>
-              <mat-option value=false>False</mat-option>
+              <mat-option value="complete">Complete</mat-option>
+              <mat-option value="incomplete">Incomplete</mat-option>
             </mat-select>
             <mat-hint>Filter through true or false status</mat-hint>
           </mat-form-field>
