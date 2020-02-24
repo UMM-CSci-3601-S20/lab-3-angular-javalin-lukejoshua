@@ -45,21 +45,21 @@ describe('Todo list', () => {
     expect(companies).not.toContain('groceries');
   });
 
-  it('Should type something in the status filter and check that it returned correct elements', () => {
-    page.typeInput('todo-status-input', 'true');
+  // it('Should type something in the status filter and check that it returned correct elements', () => {
+  //   page.typeInput('todo-status-input', 'true');
 
-    // Go through each of the cards that are being shown and get the owners
-    let owners = page.getTodoCards().map(e => e.element(by.className('todo-card-owner')).getText());
+  //   // Go through each of the cards that are being shown and get the owners
+  //   let owners = page.getTodoCards().map(e => e.element(by.className('todo-card-owner')).getText());
 
-    // We should see these users whose age is 27
-    expect(owners).toContain('Blanche');
-    expect(owners).toContain('Fry');
-    expect(owners).toContain('Barry');
+  //   // We should see these users whose age is 27
+  //   expect(owners).toContain('Blanche');
+  //   expect(owners).toContain('Fry');
+  //   expect(owners).toContain('Barry');
 
-    // We shouldn't see these users
-    expect(owners).not.toContain('Connie Stewart');
-    expect(owners).not.toContain('Lynn Ferguson');
-  });
+  //   // We shouldn't see these users
+  //   expect(owners).not.toContain('Connie Stewart');
+  //   expect(owners).not.toContain('Lynn Ferguson');
+  // });
 
   it('Should change the view', () => {
     page.changeView('list');
