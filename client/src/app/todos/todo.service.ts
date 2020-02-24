@@ -29,7 +29,7 @@ export class TodoService {
       }
 
       if (filters.limit) {
-        httpParams = httpParams.set('limit', filters.limit.toString());
+        httpParams = httpParams.set('limit',filters.limit.toString());
       }
 
     }
