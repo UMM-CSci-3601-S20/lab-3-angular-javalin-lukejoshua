@@ -79,6 +79,11 @@ describe('Todo list', () => {
   it('has two todos that status is true', () => {
     expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.status === true).length).toBe(2);
   });
+
+  it('three owners of Cookie with limit', () => {
+    expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === "Cookie"
+    && todoList.todoLimit === 3).length).toBe(3);
+  })
 });
 
 describe('Misbehaving Todo List', () => {
